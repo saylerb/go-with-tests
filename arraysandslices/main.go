@@ -1,9 +1,12 @@
 package arraysandslices
 
+import "fmt"
+
 func Sum(numbers [5]int) int {
 	sum := 0
-	for i := 0; i < 5; i++ {
-		sum += numbers[i]
+	for index, number := range numbers {
+		fmt.Println("index", index, "number", number)
+		sum += number
 	}
 	return sum
 }
