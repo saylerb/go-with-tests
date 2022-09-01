@@ -33,10 +33,16 @@ func deleteNode(head *SinglyLinkedListNode, position int) *SinglyLinkedListNode 
 	}
 
 	for currentPosition := 0; currentPosition < position-1; currentPosition++ {
-		currentNode = currentNode.next
+		if currentNode.next != nil {
+			currentNode = currentNode.next
+		} else {
+			break
+		}
 	}
 
-	currentNode.next = currentNode.next.next
+	if currentNode.next != nil {
+		currentNode.next = currentNode.next.next
+	}
 
 	return head
 }

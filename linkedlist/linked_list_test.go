@@ -132,6 +132,28 @@ func TestDeleteNodeFromLinkedList(t *testing.T) {
 			t.Errorf("got %q, wanted %q", got, want)
 		}
 	})
+
+	t.Run("try to remove a node that is outside range", func(t *testing.T) {
+		head := SinglyLinkedListNode{
+			data: 5,
+			next: &SinglyLinkedListNode{
+				data: 4,
+				next: &SinglyLinkedListNode{
+					data: 3,
+					next: nil,
+				},
+			},
+		}
+
+		result := deleteNode(&head, 3)
+
+		got := convertLinkedListToString(result, " ", t)
+		want := "5 4 3"
+
+		if got != want {
+			t.Errorf("got %q, wanted %q", got, want)
+		}
+	})
 }
 
 func convertLinkedListToString(node *SinglyLinkedListNode, sep string, t *testing.T) string {
