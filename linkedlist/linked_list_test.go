@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestLinkedList(t *testing.T) {
+func TestInsertIntoLinkedList(t *testing.T) {
 	t.Run("insert 1 at position 2 of list of length 3", func(t *testing.T) {
 		tail := SinglyLinkedListNode{data: 7, next: nil}
 		middle := SinglyLinkedListNode{data: 13, next: &tail}
@@ -56,6 +56,33 @@ func TestLinkedList(t *testing.T) {
 
 		got := convertLinkedListToString(result, " ", t)
 		want := "1 2 3 4 5 7 6"
+
+		if got != want {
+			t.Errorf("got %q, wanted %q", got, want)
+		}
+	})
+}
+
+func TestDeleteNodeFromLinkedList(t *testing.T) {
+	t.Run("remove node from postion 1 from list of length 4", func(t *testing.T) {
+		head := SinglyLinkedListNode{
+			data: 11,
+			next: &SinglyLinkedListNode{
+				data: 9,
+				next: &SinglyLinkedListNode{
+					data: 2,
+					next: &SinglyLinkedListNode{
+						data: 9,
+						next: nil,
+					},
+				},
+			},
+		}
+
+		result := deleteNode(&head, 1)
+
+		got := convertLinkedListToString(result, " ", t)
+		want := "11 2 9"
 
 		if got != want {
 			t.Errorf("got %q, wanted %q", got, want)

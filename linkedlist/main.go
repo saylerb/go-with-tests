@@ -24,3 +24,15 @@ func insertNodeAtPosition(llist *SinglyLinkedListNode, data int32, position int3
 
 	return llist
 }
+
+func deleteNode(head *SinglyLinkedListNode, position int) *SinglyLinkedListNode {
+	var currentNode *SinglyLinkedListNode = head
+
+	for currentPosition := 0; currentPosition < position-1; currentPosition++ {
+		currentNode = currentNode.next
+	}
+
+	currentNode.next = currentNode.next.next
+
+	return head
+}
