@@ -88,6 +88,28 @@ func TestDeleteNodeFromLinkedList(t *testing.T) {
 			t.Errorf("got %q, wanted %q", got, want)
 		}
 	})
+
+	t.Run("remove the head from a linked list ", func(t *testing.T) {
+		head := SinglyLinkedListNode{
+			data: 5,
+			next: &SinglyLinkedListNode{
+				data: 4,
+				next: &SinglyLinkedListNode{
+					data: 3,
+					next: nil,
+				},
+			},
+		}
+
+		result := deleteNode(&head, 0)
+
+		got := convertLinkedListToString(result, " ", t)
+		want := "4 3"
+
+		if got != want {
+			t.Errorf("got %q, wanted %q", got, want)
+		}
+	})
 }
 
 func convertLinkedListToString(node *SinglyLinkedListNode, sep string, t *testing.T) string {
