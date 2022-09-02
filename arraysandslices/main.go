@@ -12,12 +12,10 @@ func Sum(numbers []int) int {
 }
 
 func SumAll(numbersToSum ...[]int) []int {
-	lengthOfNumbersToSum := len(numbersToSum)
+	var sums []int
 
-	sums := make([]int, lengthOfNumbersToSum)
-
-	for index, slice := range numbersToSum {
-		sums[index] += Sum(slice)
+	for _, numbers := range numbersToSum {
+		sums = append(sums, Sum(numbers))
 	}
 
 	return sums
