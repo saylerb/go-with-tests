@@ -6,44 +6,40 @@ import (
 )
 
 func TestSum(t *testing.T) {
-	t.Run("collection of 5 numbers", func(t *testing.T) {
-		numbers := []int{1, 2, 3, 4, 5}
+	numbers := []int{1, 2, 3, 4, 5}
 
-		got := Sum(numbers)
-		want := 15
+	got := Sum(numbers)
+	want := 15
 
-		if got != want {
-			t.Errorf("got %d, want %d given, %v", got, want, numbers)
-		}
-	})
+	if got != want {
+		t.Errorf("got %d, want %d given, %v", got, want, numbers)
+	}
 }
 
 func TestSumAll(t *testing.T) {
 	got := SumAll([]int{1, 2}, []int{0, 9})
 	want := []int{3, 9}
-
-	// Warning: reflect.DeepEqual is not type safe
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got %v, want %v given", got, want)
-	}
+	checkSums(t, got, want)
 }
 
 func TestSumAllTails(t *testing.T) {
 	t.Run("sum the tails of two slices with 2 elements", func(t *testing.T) {
 		got := SumAllTails([]int{1, 2}, []int{0, 9})
 		want := []int{2, 9}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v, want %v given", got, want)
-		}
+		checkSums(t, got, want)
 	})
 
 	t.Run("safely sum empty slices", func(t *testing.T) {
 		got := SumAllTails([]int{}, []int{0, 9})
 		want := []int{0, 9}
-
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v, want %v given", got, want)
-		}
+		checkSums(t, got, want)
 	})
+}
+
+func checkSums(t testing.TB, got, want []int) {
+	t.Helper()
+	// Warning: reflect.DeepEqual is not type safe
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
 }
