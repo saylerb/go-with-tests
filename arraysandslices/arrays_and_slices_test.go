@@ -25,7 +25,6 @@ func TestSumAll(t *testing.T) {
 func TestSumAllTails(t *testing.T) {
 	checkSums := func(t testing.TB, got, want []int) {
 		t.Helper()
-		// Warning: reflect.DeepEqual is not type safe
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v, want %v", got, want)
 		}
