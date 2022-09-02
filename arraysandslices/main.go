@@ -20,3 +20,15 @@ func SumAll(numbersToSum ...[]int) []int {
 
 	return sums
 }
+
+func SumAllTails(numbersToSum ...[]int) []int {
+	var result []int
+
+	for _, numbers := range numbersToSum {
+		withoutHead := numbers[1:]
+
+		result = append(result, Sum(withoutHead))
+	}
+
+	return result
+}
