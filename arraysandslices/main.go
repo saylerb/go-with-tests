@@ -13,22 +13,21 @@ func Sum(numbers []int) int {
 
 func SumAll(numbersToSum ...[]int) []int {
 	var sums []int
-
 	for _, numbers := range numbersToSum {
 		sums = append(sums, Sum(numbers))
 	}
-
 	return sums
 }
 
 func SumAllTails(numbersToSum ...[]int) []int {
 	var result []int
-
 	for _, numbers := range numbersToSum {
-		withoutHead := numbers[1:]
-
-		result = append(result, Sum(withoutHead))
+		if len(numbers) == 0 {
+			result = append(result, 0)
+		} else {
+			withoutHead := numbers[1:]
+			result = append(result, Sum(withoutHead))
+		}
 	}
-
 	return result
 }
