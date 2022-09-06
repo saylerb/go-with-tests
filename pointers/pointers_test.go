@@ -6,12 +6,12 @@ import (
 
 func TestWallet(t *testing.T) {
 	t.Run("deposit money into bitcoin wallet", func(t *testing.T) {
-		wallet := Wallet{}
+		wallet := Wallet{balance: Bitcoin(10)}
 
-		wallet.Deposit(10)
+		wallet.Deposit(Bitcoin(10))
 
 		got := wallet.Balance()
-		want := Bitcoin(10)
+		want := Bitcoin(20)
 
 		if got != want {
 			t.Errorf("got %s want %s", got, want)
