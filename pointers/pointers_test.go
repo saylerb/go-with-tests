@@ -29,4 +29,20 @@ func TestWallet(t *testing.T) {
 			t.Errorf("got %s want %s", got, want)
 		}
 	})
+	t.Run("overdrafting balance should result in an error", func(t *testing.T) {
+		wallet := Wallet{balance: Bitcoin(20)}
+
+		err := wallet.Withdraw(Bitcoin(100))
+
+		got := wallet.Balance()
+		want := Bitcoin(20)
+
+		if got != want {
+			t.Errorf("got %s want %s", got, want)
+		}
+
+		if err == nil {
+			t.Error("wanted an error to be retured")
+		}
+	})
 }
