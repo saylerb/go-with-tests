@@ -40,9 +40,14 @@ func TestWallet(t *testing.T) {
 		if got != want {
 			t.Errorf("got %s want %s", got, want)
 		}
-
 		if err == nil {
-			t.Error("wanted an error to be retured")
+			// t.Fatal will stop the test, so that we don't assert on
+			// error that does not exist
+			t.Fatal("wanted an error to be retured, but no error was returned")
+		}
+		wantedErr := "insufficient balance"
+		if err.Error() != wantedErr {
+			t.Errorf("got %q, wanted %q", err, wantedErr)
 		}
 	})
 }
