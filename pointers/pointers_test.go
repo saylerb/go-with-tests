@@ -20,7 +20,12 @@ func TestWallet(t *testing.T) {
 	t.Run("withdraw money from bitcoin wallet", func(t *testing.T) {
 		wallet := Wallet{balance: Bitcoin(20)}
 
-		wallet.Withdraw(Bitcoin(10))
+		err := wallet.Withdraw(Bitcoin(10))
+
+		if err != nil {
+			t.Fatalf("did not expect an error to be returned, but one was: %v", err)
+
+		}
 
 		got := wallet.Balance()
 		want := Bitcoin(10)
