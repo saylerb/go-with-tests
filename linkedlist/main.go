@@ -63,3 +63,14 @@ func reverseList(head *SinglyLinkedListNode) *SinglyLinkedListNode {
 
 	return currentNode
 }
+
+func reverseListRecursive(current *SinglyLinkedListNode, previous *SinglyLinkedListNode) *SinglyLinkedListNode {
+	if current.next == nil {
+		current.next = previous
+		return current
+	} else {
+		next := current.next
+		current.next = previous
+		return reverseListRecursive(next, current)
+	}
+}
