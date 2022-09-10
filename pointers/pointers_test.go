@@ -45,9 +45,8 @@ func TestWallet(t *testing.T) {
 			// error that does not exist
 			t.Fatal("wanted an error to be retured, but no error was returned")
 		}
-		wantedErr := "insufficient balance"
-		if err.Error() != wantedErr {
-			t.Errorf("got %q, wanted %q", err, wantedErr)
+		if err != ErrInsufficientBalance {
+			t.Errorf("got %q, wanted %q", err, ErrInsufficientBalance)
 		}
 	})
 }
