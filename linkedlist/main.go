@@ -46,3 +46,20 @@ func deleteNode(head *SinglyLinkedListNode, position int) *SinglyLinkedListNode 
 
 	return head
 }
+
+func reverseList(head *SinglyLinkedListNode) *SinglyLinkedListNode {
+	var previousNode *SinglyLinkedListNode
+	var currentNode *SinglyLinkedListNode = head
+
+	for currentNode.next != nil {
+		subsequentNode := currentNode.next
+		currentNode.next = previousNode
+
+		previousNode = currentNode
+		currentNode = subsequentNode
+	}
+
+	currentNode.next = previousNode
+
+	return currentNode
+}

@@ -156,6 +156,30 @@ func TestDeleteNodeFromLinkedList(t *testing.T) {
 	})
 }
 
+func TestReverseALinkedList(t *testing.T) {
+	t.Run("test reversing a linked list", func(t *testing.T) {
+		head := SinglyLinkedListNode{
+			data: 5,
+			next: &SinglyLinkedListNode{
+				data: 4,
+				next: &SinglyLinkedListNode{
+					data: 3,
+					next: nil,
+				},
+			},
+		}
+		reversed := reverseList(&head)
+
+		got := convertLinkedListToString(reversed, " ", t)
+
+		want := "3 4 5"
+
+		if got != want {
+			t.Errorf("got %q, wanted %q", got, want)
+		}
+	})
+}
+
 func convertLinkedListToString(node *SinglyLinkedListNode, sep string, t *testing.T) string {
 	t.Helper()
 	var result string
