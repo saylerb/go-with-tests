@@ -20,11 +20,7 @@ func TestWallet(t *testing.T) {
 
 		err := wallet.Withdraw(Bitcoin(10))
 
-		if err != nil {
-			t.Fatalf("did not expect an error to be returned, but one was: %v", err)
-
-		}
-
+		assertNoError(t, err)
 		got := wallet.Balance()
 		want := Bitcoin(10)
 
@@ -39,15 +35,7 @@ func TestWallet(t *testing.T) {
 		want := Bitcoin(20)
 
 		assertBalance(t, got, want)
-
-		if err == nil {
-			// t.Fatal will stop the test, so that we don't assert on
-			// error that does not exist
-			t.Fatal("wanted an error to be retured, but no error was returned")
-		}
-		if err != ErrInsufficientBalance {
-			t.Errorf("got %q, wanted %q", err, ErrInsufficientBalance)
-		}
+		assertError(t, err, ErrInsufficientBalance)
 	})
 }
 
@@ -55,5 +43,22 @@ func assertBalance(t *testing.T, got Bitcoin, want Bitcoin) {
 	t.Helper()
 	if got != want {
 		t.Errorf("got %s want %s", got, want)
+	}
+}
+
+func assertError(t *testing.T, got error, want error) {
+	t.Helper()
+	if got == nil {
+		t.Fatal("wanted an error to be retured, but no error was returned")
+	}
+	if got != want {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+}
+
+func assertNoError(t *testing.T, got error) {
+	t.Helper()
+	if got != nil {
+		t.Fatalf("did not expect an error to be returned, but one was: %v", got)
 	}
 }
