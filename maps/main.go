@@ -1,11 +1,13 @@
 package main
 
-import "errors"
+import (
+	"errors"
+)
 
 func (d Dictionary) Search(key string) (string, error) {
-	result := d[key]
+	result, ok := d[key]
 
-	if result == "" {
+	if !ok {
 		return result, errors.New("could not find the word you're looking for")
 	}
 
