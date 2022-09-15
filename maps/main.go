@@ -4,8 +4,10 @@ import (
 	"errors"
 )
 
-var ErrNotFound = errors.New("could not find the word you're looking for")
-var ErrWordExists = errors.New("world already exists")
+var (
+	ErrNotFound   = errors.New("could not find the word you're looking for")
+	ErrWordExists = errors.New("world already exists")
+)
 
 type Dictionary map[string]string
 
@@ -22,10 +24,13 @@ func (d Dictionary) Search(key string) (string, error) {
 func (d Dictionary) Add(key string, value string) error {
 	_, err := d.Search(key)
 
-	if err == ErrNotFound {
+	switch err {
+	case ErrNotFound:
 		d[key] = value
-	} else {
+	case nil:
 		return ErrWordExists
+	default:
+		return err
 	}
 	return nil
 }
