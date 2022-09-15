@@ -20,7 +20,7 @@ func TestSearchDictionary(t *testing.T) {
 }
 
 func TestAddToDictionary(t *testing.T) {
-	t.Run("add a key to the dictionary", func(t *testing.T) {
+	t.Run("add a new word to the dictionary", func(t *testing.T) {
 		dictionary := Dictionary{}
 
 		dictionary.Add("test key", "test value")
@@ -29,6 +29,19 @@ func TestAddToDictionary(t *testing.T) {
 		want := "test value"
 
 		assertString(t, got, want)
+	})
+
+	t.Run("add a word that already exists in dictionary", func(t *testing.T) {
+		word := "test key"
+		definition := "test value"
+		dictionary := Dictionary{word: definition}
+
+		err := dictionary.Add(word, "another definition")
+
+		found, _ := dictionary.Search("test key")
+
+		assertError(t, err, ErrWordExists)
+		assertString(t, found, definition)
 	})
 }
 
