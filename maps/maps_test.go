@@ -45,6 +45,26 @@ func TestAddToDictionary(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	t.Run("update an existing word", func(t *testing.T) {
+		dictionary := Dictionary{"test key": "test value"}
+
+		dictionary.Update("test key", "updated value")
+
+		found, _ := dictionary.Search("test key")
+
+		assertString(t, found, "updated value")
+	})
+
+	t.Run("trying to update a word that does not exist results in an error", func(t *testing.T) {
+		dictionary := Dictionary{}
+
+		err := dictionary.Update("key that does not exist", "updated value")
+
+		assertError(t, err, ErrNotFound)
+	})
+}
+
 func assertString(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
