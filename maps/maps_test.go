@@ -61,8 +61,18 @@ func TestUpdate(t *testing.T) {
 
 		err := dictionary.Update("key that does not exist", "updated value")
 
-		assertError(t, err, ErrNotFound)
+		assertError(t, err, ErrNoWordToUpdate)
 	})
+}
+
+func TestDelete(t *testing.T) {
+	dictionary := Dictionary{"test key": "test value"}
+
+	dictionary.Delete("test key")
+
+	_, err := dictionary.Search("test key")
+
+	assertError(t, err, ErrNotFound)
 }
 
 func assertString(t *testing.T, got, want string) {

@@ -5,8 +5,9 @@ import (
 )
 
 var (
-	ErrNotFound   = errors.New("could not find the word you're looking for")
-	ErrWordExists = errors.New("world already exists")
+	ErrNotFound       = errors.New("could not find the word you're looking for")
+	ErrNoWordToUpdate = errors.New("could not update the definition, word not found")
+	ErrWordExists     = errors.New("world already exists")
 )
 
 type Dictionary map[string]string
@@ -40,7 +41,7 @@ func (d Dictionary) Update(key string, value string) error {
 
 	switch err {
 	case ErrNotFound:
-		return ErrNotFound
+		return ErrNoWordToUpdate
 	case nil:
 		d[key] = value
 	default:
@@ -48,4 +49,8 @@ func (d Dictionary) Update(key string, value string) error {
 	}
 
 	return nil
+}
+
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
 }
