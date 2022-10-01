@@ -8,9 +8,9 @@ import (
 
 func Countdown(writer io.Writer) {
 	for i := 3; i > 0; i-- {
-		fmt.Fprint(writer, fmt.Sprintf("%d\n", i))
+		fmt.Fprintln(writer, i)
 	}
-	fmt.Fprint(writer, "Go!\n")
+	fmt.Fprintln(writer, "Go!")
 }
 
 func main() {
