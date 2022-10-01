@@ -2,26 +2,45 @@ package main
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 )
 
 func TestCountdown(t *testing.T) {
-	var buffer *bytes.Buffer = &bytes.Buffer{}
-	var spySleeper *SpySleeper = &SpySleeper{}
+	t.Run("test that the output is correct", func(t *testing.T) {
+		var buffer *bytes.Buffer = &bytes.Buffer{}
+		var spy Sleeper = &SpySleeper{}
 
-	Countdown(buffer, spySleeper)
+		Countdown(buffer, spy)
 
-	got := buffer.String()
-	want := `3
+		got := buffer.String()
+		want := `3
 2
 1
 Go!
 `
-	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
-	}
+		if got != want {
+			t.Errorf("got %q, wanted %q", got, want)
+		}
+	})
 
-	if spySleeper.Calls != 3 {
-		t.Errorf("not enough calls to the sleeper, want 3 go %d", spySleeper.Calls)
-	}
+	t.Run("test the calls to sleep and write are in the correct order", func(t *testing.T) {
+		var spy *CountdownOperations = &CountdownOperations{}
+
+		Countdown(spy, spy)
+
+		wantedCalls := []string{
+			"3\n",
+			"sleep",
+			"2\n",
+			"sleep",
+			"1\n",
+			"sleep",
+			"Go!\n",
+		}
+
+		if !reflect.DeepEqual(wantedCalls, spy.Calls) {
+			t.Errorf("incorrect ordering of calls, wanted %q, got %q", wantedCalls, spy.Calls)
+		}
+	})
 }
