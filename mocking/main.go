@@ -36,12 +36,6 @@ func (s *SpySleeper) Sleep() {
 	s.Calls++
 }
 
-type DefaultSleeper struct{}
-
-func (d *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
-}
-
 type CountdownOperations struct {
 	Calls []string
 }
