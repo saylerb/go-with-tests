@@ -5,10 +5,40 @@ import (
 	"testing"
 )
 
-func rgb(r int, g int, b int) string {
+func rgbSimple(r int, g int, b int) string {
 	// %02 padd with 2 zero's
 	// %X uppercase hex representation
 	return fmt.Sprintf("%02X%02X%02X", normalize(r), normalize(g), normalize(b))
+}
+
+func getRemainders(num int) (int, int) {
+	result := num / 16
+	remainder := num % 16
+	remainderTwo := result % 16
+	return remainder, remainderTwo
+}
+
+func toHexDigit(num int) string {
+	if num > 10 {
+		return string(rune(num - 10 + 65))
+	} else {
+		return fmt.Sprintf("%d", num)
+	}
+}
+
+func toHexString(num int) string {
+	remainder, remainderTwo := getRemainders(num)
+
+	right := toHexDigit(remainder)
+	left := toHexDigit(remainderTwo)
+
+	return left + right
+}
+
+func rgb(r int, g int, b int) string {
+	return toHexString(normalize(r)) +
+		toHexString(normalize(g)) +
+		toHexString(normalize(b))
 }
 
 func normalize(num int) int {
