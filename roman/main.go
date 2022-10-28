@@ -1,40 +1,57 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"sort"
+)
+
+type RomansMap map[int]string
+
+var romans = RomansMap{
+	1000: "M",
+	900:  "CM",
+	500:  "D",
+	400:  "CD",
+	100:  "C",
+	90:   "XC",
+	50:   "L",
+	40:   "XL",
+	10:   "X",
+	9:    "IX",
+	5:    "V",
+	4:    "IV",
+	1:    "I",
+	0:    "",
+}
+
+func main() {
+	fmt.Println("romans")
+}
 
 func IntegerToRoman(number int) string {
-	if number >= 1000 {
-		return "M" + IntegerToRoman(number-1000)
+	var current int
+
+	numeral, present := romans[number]
+
+	if present {
+		return numeral
 	}
-	if number >= 900 {
-		return "CM" + IntegerToRoman(number-900)
+
+	keys := make([]int, 0)
+
+	for k, _ := range romans {
+		keys = append(keys, k)
 	}
-	if number >= 500 {
-		return "D" + IntegerToRoman(number-500)
+
+	// sort the keys in map decending
+	sort.Sort(sort.Reverse(sort.IntSlice(keys)))
+
+	for _, key := range keys {
+		if number >= key {
+			current = key
+			break
+		}
 	}
-	if number >= 400 {
-		return "CD" + IntegerToRoman(number-400)
-	}
-	if number >= 90 {
-		return "XC" + IntegerToRoman(number-90)
-	}
-	if number >= 50 {
-		return "L" + IntegerToRoman(number-50)
-	}
-	if number >= 40 {
-		return "XL" + IntegerToRoman(number-40)
-	}
-	if number >= 10 {
-		return "X" + IntegerToRoman(number-10)
-	}
-	if number == 9 {
-		return "IX"
-	}
-	if number >= 5 {
-		return "V" + IntegerToRoman(number-5)
-	}
-	if number == 4 {
-		return "IV"
-	}
-	return strings.Repeat("I", number)
+
+	return romans[current] + IntegerToRoman(number-current)
 }
