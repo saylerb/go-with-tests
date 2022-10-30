@@ -30,7 +30,7 @@ type Board struct {
 }
 
 func (b Board) String() string {
-	return fmt.Sprintf("Board{A: %+v, B: %+v,C: %+v, moves: %d}", b.A, b.B, b.C, 0)
+	return fmt.Sprintf("Board{A: %+v, B: %+v,C: %+v, moves: %d}", b.A, b.B, b.C, b.moves)
 }
 
 func (b *Board) Solve() {
@@ -53,6 +53,7 @@ func solveHanoi(b *Board, totalDisks int, from *Stack, to *Stack, other *Stack) 
 	bottomDisk := from.Pop()
 	to.Push(bottomDisk)
 	b.moves += 1
+	fmt.Println(b)
 
 	// solve subproblem of moving n-1 disks from _other_ stack to dest
 	solveHanoi(b, totalDisks-1, other, to, from)
