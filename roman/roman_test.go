@@ -29,6 +29,7 @@ func TestRoman(t *testing.T) {
 	AssertRoman(IntegerToRoman(50), "L", t)
 	AssertRoman(IntegerToRoman(51), "LI", t)
 	AssertRoman(IntegerToRoman(90), "XC", t)
+	AssertRoman(IntegerToRoman(100), "C", t)
 	AssertRoman(IntegerToRoman(93), "XCIII", t)
 	AssertRoman(IntegerToRoman(400), "CD", t)
 	AssertRoman(IntegerToRoman(410), "CDX", t)

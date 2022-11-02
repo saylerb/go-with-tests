@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 type RomansMap map[int]string
@@ -54,4 +55,44 @@ func IntegerToRoman(number int) string {
 	}
 
 	return romans[current] + IntegerToRoman(number-current)
+}
+
+func IntegerToRomanBrute(number int) string {
+	if number >= 1000 {
+		return "M" + IntegerToRomanBrute(number-1000)
+	}
+	if number >= 900 {
+		return "CM" + IntegerToRomanBrute(number-900)
+	}
+	if number >= 500 {
+		return "D" + IntegerToRomanBrute(number-500)
+	}
+	if number >= 400 {
+		return "CD" + IntegerToRomanBrute(number-400)
+	}
+	if number >= 100 {
+		return "C" + IntegerToRomanBrute(number-100)
+	}
+	if number >= 90 {
+		return "XC" + IntegerToRomanBrute(number-90)
+	}
+	if number >= 50 {
+		return "L" + IntegerToRomanBrute(number-50)
+	}
+	if number >= 40 {
+		return "XL" + IntegerToRomanBrute(number-40)
+	}
+	if number >= 10 {
+		return "X" + IntegerToRomanBrute(number-10)
+	}
+	if number == 9 {
+		return "IX"
+	}
+	if number >= 5 {
+		return "V" + IntegerToRomanBrute(number-5)
+	}
+	if number >= 4 {
+		return "IV" + IntegerToRomanBrute(number-4)
+	}
+	return strings.Repeat("I", number)
 }
