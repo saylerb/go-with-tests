@@ -49,8 +49,24 @@ func TestCoin(t *testing.T) {
 	})
 }
 func TestDecending(t *testing.T) {
-	t.Run("test can sort the coins decending", func(t *testing.T) {
+	t.Run("test can sort ints decending", func(t *testing.T) {
 		got := sortDecending([]int{1, 2, 5})
+		want := []int{5, 2, 1}
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got %v, wanted %v", got, want)
+		}
+	})
+	t.Run("test can sort ints decending mutating the original array", func(t *testing.T) {
+		got := sortDecendingMut([]int{1, 2, 5})
+		want := []int{5, 2, 1}
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got %v, wanted %v", got, want)
+		}
+	})
+	t.Run("test can sort ints with a lambda", func(t *testing.T) {
+		got := sortDecendingLambda([]int{1, 2, 5})
 		want := []int{5, 2, 1}
 
 		if !reflect.DeepEqual(got, want) {

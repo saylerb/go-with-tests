@@ -30,3 +30,15 @@ func sortDecending(arr []int) []int {
 	sort.Sort(reversed)
 	return copied
 }
+
+func sortDecendingMut(arr []int) []int {
+	sort.Sort(sort.Reverse(sort.IntSlice(arr)))
+	return arr
+}
+
+func sortDecendingLambda(arr []int) []int {
+	sort.Slice(arr, func(i, j int) bool {
+		return arr[i] > arr[j] // reverse sort
+	})
+	return arr
+}
