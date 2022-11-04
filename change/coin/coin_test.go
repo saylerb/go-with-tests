@@ -8,7 +8,7 @@ import (
 
 func TestCoinResult(t *testing.T) {
 	t.Run("making sure we can print out the Change object", func(t *testing.T) {
-		change := Change{Coin{name: "penny", value: 1}: 2}
+		change := Change{Coin{Name: "penny", Value: 1}: 2}
 		got := fmt.Sprint(change)
 
 		want := "2 penny"
@@ -21,7 +21,7 @@ func TestCoinResult(t *testing.T) {
 
 func TestCoin(t *testing.T) {
 	t.Run("making change zero returns zero", func(t *testing.T) {
-		penny := Coin{name: "penny", value: 1}
+		penny := Coin{Name: "penny", Value: 1}
 		got := CoinChange([]Coin{penny}, 0)
 		want := "no change can be made for amount 0"
 
@@ -30,7 +30,7 @@ func TestCoin(t *testing.T) {
 		}
 	})
 	t.Run("making change for 10 cents with a single dime", func(t *testing.T) {
-		dime := Coin{name: "dime", value: 10}
+		dime := Coin{Name: "dime", Value: 10}
 
 		got := CoinChange([]Coin{dime}, 10)
 		want := "1 dime"
@@ -49,9 +49,9 @@ func TestCoin(t *testing.T) {
 		}
 	})
 	t.Run("making change for 11 cents with 1, 2 and 5 cent coins", func(t *testing.T) {
-		oneCent := Coin{name: "one cent coin", value: 1}
-		twoCent := Coin{name: "two cent coin", value: 2}
-		fiveCent := Coin{name: "five cent coin", value: 5}
+		oneCent := Coin{Name: "one cent coin", Value: 1}
+		twoCent := Coin{Name: "two cent coin", Value: 2}
+		fiveCent := Coin{Name: "five cent coin", Value: 5}
 		got := CoinChange([]Coin{oneCent, twoCent, fiveCent}, 11)
 		want := "2 five cent coin,\n1 one cent coin"
 
@@ -61,12 +61,12 @@ func TestCoin(t *testing.T) {
 	})
 	t.Run("making change for 177 cents with 1, 5, 10, 50, 100, 500 cent coins", func(t *testing.T) {
 		availableCoins := []Coin{
-			Coin{name: "one yen coin", value: 1},
-			Coin{name: "five yen coin", value: 5},
-			Coin{name: "ten yen coin", value: 10},
-			Coin{name: "fifty yen coin", value: 50},
-			Coin{name: "hundred yen coin", value: 100},
-			Coin{name: "five hundred yen coin", value: 500},
+			Coin{Name: "one yen coin", Value: 1},
+			Coin{Name: "five yen coin", Value: 5},
+			Coin{Name: "ten yen coin", Value: 10},
+			Coin{Name: "fifty yen coin", Value: 50},
+			Coin{Name: "hundred yen coin", Value: 100},
+			Coin{Name: "five hundred yen coin", Value: 500},
 		}
 
 		got := CoinChange(availableCoins, 177)
@@ -100,9 +100,9 @@ func TestDecending(t *testing.T) {
 		}
 	})
 	t.Run("test can sort ints with a lambda", func(t *testing.T) {
-		oneCent := Coin{name: "one cent coin", value: 1}
-		twoCent := Coin{name: "two cent coin", value: 2}
-		fiveCent := Coin{name: "five cent coin", value: 5}
+		oneCent := Coin{Name: "one cent coin", Value: 1}
+		twoCent := Coin{Name: "two cent coin", Value: 2}
+		fiveCent := Coin{Name: "five cent coin", Value: 5}
 
 		got := sortDecendingLambda([]Coin{oneCent, twoCent, fiveCent})
 		want := []Coin{fiveCent, twoCent, oneCent}

@@ -6,7 +6,13 @@ import (
 )
 
 func main() {
-	result := coin.CoinChange([]int{1, 2, 5}, 11)
+	coins := []coin.Coin{
+		coin.Coin{Name: "penny", Value: 1},
+		coin.Coin{Name: "2 cent", Value: 2},
+		coin.Coin{Name: "nickel", Value: 5},
+	}
+
+	result := coin.CoinChange(coins, 11)
 
 	fmt.Println(result)
 }

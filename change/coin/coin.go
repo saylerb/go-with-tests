@@ -7,8 +7,8 @@ import (
 )
 
 type Coin struct {
-	name  string
-	value int
+	Name  string
+	Value int
 }
 
 type Change map[Coin]int
@@ -25,7 +25,7 @@ func (c Change) String() string {
 
 	for _, coin := range decending {
 		amount := c[coin]
-		printed := fmt.Sprintf("%v %v", amount, coin.name)
+		printed := fmt.Sprintf("%v %v", amount, coin.Name)
 		summary = append(summary, printed)
 	}
 
@@ -46,9 +46,9 @@ func CoinChange(coins []Coin, amount int) string {
 	var result Change = make(Change)
 
 	for _, coin := range decending {
-		for amount >= coin.value {
+		for amount >= coin.Value {
 			result[coin] += 1
-			amount -= coin.value
+			amount -= coin.Value
 		}
 	}
 	return result.String()
@@ -70,7 +70,7 @@ func sortDecendingMut(arr []int) []int {
 
 func sortDecendingLambda(arr []Coin) []Coin {
 	sort.Slice(arr, func(i, j int) bool {
-		return arr[i].value > arr[j].value // reverse sort
+		return arr[i].Value > arr[j].Value // reverse sort
 	})
 	return arr
 }
