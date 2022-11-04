@@ -1,25 +1,57 @@
 package coin
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
 
-func CoinChange(coins []int, amount int) int {
-	if len(coins) == 0 {
-		return -1
-	}
-	if amount == 0 {
-		return 0
-	}
-	decending := sortDecending(coins)
+type Coin struct {
+	name  string
+	value int
+}
 
-	var result int
+type Change map[Coin]int
+
+func (c Change) String() string {
+	summary := []string{}
+
+	// keys in map are not ordered, need to sort em
+	var coins []Coin = []Coin{}
+	for key, _ := range c {
+		coins = append(coins, key)
+	}
+	decending := sortDecendingLambda(coins)
 
 	for _, coin := range decending {
-		for amount >= coin {
-			result += 1
-			amount -= coin
+		amount := c[coin]
+		printed := fmt.Sprintf("%v %v", amount, coin.name)
+		summary = append(summary, printed)
+	}
+
+	return strings.Join(summary, ",\n")
+}
+
+func CoinChange(coins []Coin, amount int) string {
+	if len(coins) == 0 {
+		return "no change can be made, no coins available :("
+	}
+	if amount == 0 {
+		return "no change can be made for amount 0"
+	}
+	decending := sortDecendingLambda(coins)
+
+	// create map here for the change object based on the
+	// available coins
+	var result Change = make(Change)
+
+	for _, coin := range decending {
+		for amount >= coin.value {
+			result[coin] += 1
+			amount -= coin.value
 		}
 	}
-	return result
+	return result.String()
 }
 
 func sortDecending(arr []int) []int {
@@ -36,9 +68,9 @@ func sortDecendingMut(arr []int) []int {
 	return arr
 }
 
-func sortDecendingLambda(arr []int) []int {
+func sortDecendingLambda(arr []Coin) []Coin {
 	sort.Slice(arr, func(i, j int) bool {
-		return arr[i] > arr[j] // reverse sort
+		return arr[i].value > arr[j].value // reverse sort
 	})
 	return arr
 }
